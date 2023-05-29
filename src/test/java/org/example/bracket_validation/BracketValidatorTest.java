@@ -50,9 +50,21 @@ class BracketValidatorTest {
         assertTrue(bracketValidator.hasInvalidStartingBracket("}"));
         assertTrue(bracketValidator.hasInvalidStartingBracket("){][)"));
 
-        assertFalse(bracketValidator.isValid("("));
-        assertFalse(bracketValidator.isValid("["));
-        assertFalse(bracketValidator.isValid("{"));
-        assertFalse(bracketValidator.isValid("{}[)"));
+        assertFalse(bracketValidator.hasInvalidStartingBracket("("));
+        assertFalse(bracketValidator.hasInvalidStartingBracket("["));
+        assertFalse(bracketValidator.hasInvalidStartingBracket("{"));
+        assertFalse(bracketValidator.hasInvalidStartingBracket("{}[)"));
+    }
+
+    @Test
+    public void testHasForbiddenCharacters() {
+
+        assertTrue(bracketValidator.hasForbiddenCharacters("(test)"));
+        assertTrue(bracketValidator.hasForbiddenCharacters("[.]"));
+        assertTrue(bracketValidator.hasForbiddenCharacters("test2()"));
+
+        assertFalse(bracketValidator.hasForbiddenCharacters("()"));
+        assertFalse(bracketValidator.hasForbiddenCharacters("[((){}"));
+        assertFalse(bracketValidator.hasForbiddenCharacters("({})"));
     }
 }
