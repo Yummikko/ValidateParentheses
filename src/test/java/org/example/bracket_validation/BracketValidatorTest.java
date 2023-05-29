@@ -7,10 +7,10 @@ import static junit.framework.Assert.assertTrue;
 
 class BracketValidatorTest {
 
+    BracketValidator bracketValidator = new BracketValidator();
+
     @Test
     public void testIfStringIsValid() {
-
-        BracketValidator bracketValidator = new BracketValidator();
 
         assertTrue(bracketValidator.isValid("()"));
         assertTrue(bracketValidator.isValid("[]"));
@@ -40,7 +40,19 @@ class BracketValidatorTest {
         assertFalse(bracketValidator.isValid("{(())]"));
         assertFalse(bracketValidator.isValid("letters"));
         assertFalse(bracketValidator.isValid("!"));
-
     }
 
+    @Test
+    public void testHasInvalidStartingBracket() {
+
+        assertTrue(bracketValidator.hasInvalidStartingBracket(")"));
+        assertTrue(bracketValidator.hasInvalidStartingBracket("]"));
+        assertTrue(bracketValidator.hasInvalidStartingBracket("}"));
+        assertTrue(bracketValidator.hasInvalidStartingBracket("){][)"));
+
+        assertFalse(bracketValidator.isValid("("));
+        assertFalse(bracketValidator.isValid("["));
+        assertFalse(bracketValidator.isValid("{"));
+        assertFalse(bracketValidator.isValid("{}[)"));
+    }
 }
